@@ -1,0 +1,13 @@
+// Duplicates the repo-level settings.json, in case
+// you open just chaperone/ as your working folder in VSCode.
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "numso.prettier-standard-vscode",
+    "editor.formatOnSave": true,
+  },
+  "svelte.enable-ts-plugin": true,
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode",
+    "editor.formatOnSave": true,
+  },
+}

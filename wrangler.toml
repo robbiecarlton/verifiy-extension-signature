@@ -1,0 +1,28 @@
+# wrangler.toml
+
+# The name of your Workers application
+name = "qa-chaperone-rsm"
+account_id = "18ff2b4e6205b938652998cfca0d8cff"
+type = "webpack"
+zone_id = "82b670b6a3c86e0f1913b2a9d1cce729"
+route = "chaperone-rsm.qa.holotest.net/*"
+
+# [site] section describes the way static assets should be served from `bucket` by `entry-point` worker
+[site]
+bucket = "./public"
+entry-point = "workers-site"
+
+[env.mainnet]
+zone_id = "35f34e8f9d04ef8c87283ea9fb812989"
+name = "mainnet-chaperone-rsm"
+route = "chaperone-rsm.holo.host/*"
+
+[env.scalenet]
+zone_id = "35f34e8f9d04ef8c87283ea9fb812989"
+name = "scale-chaperone-rsm"
+route = "chaperone-rsm.scale.holotest.net/*"
+
+[env.devnet]
+zone_id = "35f34e8f9d04ef8c87283ea9fb812989"
+name = "chaperone-rsm"
+route = "chaperone-rsm.dev.holotest.net/*"
