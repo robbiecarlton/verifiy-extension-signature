@@ -18,9 +18,6 @@
       '@holo-host/cryptolib'
     )
 
-    // the particular keys here are irrelevant, we just need any instance of key manager to call the verify function
-    const key_pair = new CryptolibKeyManager(randomBytes(32))
-
     const extension_client = createHoloKeyManager({
       happId: 'any_happ_id',
       happName: 'any_happ_name',
@@ -37,19 +34,37 @@
     // any message
     const message = new Uint8Array([19, 20, 1, 43, 92, 57, 38, 14, 29])
 
-    const signature = await extension_client.signMessage(message)
+    console.log('Verifying extension signature')
 
-    console.log('KeyManager', CryptolibKeyManager)
+    const extension_signature = await extension_client.signMessage(message)
 
-    console.log('Verifying signature', key_pair)
-
-    const verified = CryptolibKeyManager.verifyWithPublicKey(
+    const extension_verified = CryptolibKeyManager.verifyWithPublicKey(
       message,
-      signature,
+      extension_signature,
       extension_pubkey
     )
 
-    console.log(verified ? 'Verified' : 'Failed to verify')
+    console.log(
+      extension_verified ? 'Extension Verified' : 'Extension Failed to verify'
+    )
+
+    console.log('Verifying CryptolibKeyManager signature')
+
+    const key_pair = new CryptolibKeyManager(randomBytes(32))
+    const clkm_pubkey = key_pair.publicKey()
+    const clkm_signature = key_pair.sign(message)
+
+    const clkm_verified = CryptolibKeyManager.verifyWithPublicKey(
+      message,
+      clkm_signature,
+      clkm_pubkey
+    )
+
+    console.log(
+      clkm_verified
+        ? 'CryptolibKeyManager Verified'
+        : 'CryptolibKeyManager Failed to verify'
+    )
   }
 </script>
 
